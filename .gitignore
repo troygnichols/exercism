@@ -1,0 +1,11 @@
+.gradle
+java/**/gradle/wrapper
+java/*/out
+java/*/build
+java/*/.idea
+*.class
+*.iml
+*.ipr
+*.iws
+csharp/*/bin
+csharp/*/obj
