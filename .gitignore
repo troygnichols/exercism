@@ -1,3 +1,4 @@
+# Java
 .gradle
 java/**/gradle/wrapper
 java/*/out
@@ -7,5 +8,10 @@ java/*/.idea
 *.iml
 *.ipr
 *.iws
+
+# Csharp
 csharp/*/bin
 csharp/*/obj
+
+# C
+c/*/tests.out*
