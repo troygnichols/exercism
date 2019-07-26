@@ -10,9 +10,8 @@ class ResistorColorDuo
   def initialize(colors)
     @value = colors
       .map(&method(:color_value))
-      .reverse
-      .each_with_index
-      .sum {|color_value, index| color_value * 10 ** index}
+      .join
+      .to_i
   end
 
   private
