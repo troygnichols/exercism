@@ -5,8 +5,7 @@ class Palindromes
     attr_reader :value, :factors
 
     def initialize(value, factors)
-      @value = value
-      @factors = factors
+      @value, @factors = value, factors
     end
 
     def <=>(other)
@@ -17,8 +16,7 @@ class Palindromes
   attr_reader :max_factor, :min_factor
 
   def initialize(max_factor:, min_factor: 1)
-    @max_factor = max_factor
-    @min_factor = min_factor
+    @max_factor, @min_factor = max_factor, min_factor
   end
 
   def generate; palindromes end
