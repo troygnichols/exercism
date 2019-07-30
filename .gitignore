@@ -1,15 +1,21 @@
-# Java
+# JVM languages
 .gradle
 java/**/gradle/wrapper
 java/*/out
 java/*/build
 java/*/.idea
+
+groovy/**/gradle/wrapper
+groovy/*/out
+groovy/*/build
+groovy/*/.idea
+
 *.class
 *.iml
 *.ipr
 *.iws
 
-# Csharp
+# CSharp
 csharp/*/bin
 csharp/*/obj
 
