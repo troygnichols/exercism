@@ -1,39 +1,29 @@
 class TeamRecord
-  FIELDS = %i(matches_played won drawn lost points)
+  attr_reader :name, :won, :lost, :drawn
 
-  attr_reader(*FIELDS)
-
-  def initialize
-    FIELDS.each{|field| instance_variable_set("@#{field}", 0) }
+  def initialize(name)
+    @name = name
+    @won, @drawn, @lost = 0, 0, 0
   end
 
   def win!
-    match!
-    @points += 3
     @won += 1
   end
 
   def lose!
-    match!
     @lost += 1
   end
 
   def draw!
-    match!
     @drawn += 1
-    @points += 1
   end
 
-  def to_h
-    FIELDS.inject({}) {|memo, field|
-      memo.merge(field => send(field))
-    }
+  def matches_played
+    won + lost + drawn
   end
 
-  private
-
-  def match!
-    @matches_played += 1
+  def points
+    won * 3 + drawn
   end
 end
 

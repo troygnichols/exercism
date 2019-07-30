@@ -1,34 +1,36 @@
 class Formatter
-  attr_reader :store
+  attr_reader :records
 
-  def initialize(store)
-    @store = store
+  def initialize(records)
+    @records = records
   end
 
   def format
     lines.prepend(header).join("\n") << "\n"
   end
 
-  def sort(data)
-    data.sort_by{|record|
-      won, drawn, team = record.fetch_values(:won, :drawn, :team)
-      [-won, -drawn, team]
+  private
+
+  def sorted_records
+    records.sort_by{|record|
+      [-record.won, -record.drawn, record.name]
     }
   end
 
-  def header
-    line('Team', 'MP', 'W', 'D', 'L', 'P')
-  end
-
   def lines
-    sort(store.data).map{|record|
-      line(
-        *record.fetch_values(
-          :team, :matches_played, :won, :drawn, :lost, :points))
+    sorted_records.map{|record|
+      values = %i(name matches_played won drawn lost points).map{|field|
+        record.send(field)
+      }
+      line(*values)
     }
   end
 
   def line(*fields)
     "%-30s | %2s | %2s | %2s | %2s | %2s" % fields
+  end
+
+  def header
+    line('Team', 'MP', 'W', 'D', 'L', 'P')
   end
 end
