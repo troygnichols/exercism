@@ -5,20 +5,20 @@ usage() {
 }
 
 main() {
-  NUMS=(3 5 7)
-  SOUNDS=(Pling Plang Plong)
+  nums=(3 5 7)
+  sounds=(Pling Plang Plong)
 
-  ACC=""
-  for ((i=0; i<${#NUMS[@]}; i++)); do
-    NUM=${NUMS[$i]}
-    SOUND=${SOUNDS[$i]}
+  acc=""
+  for ((i=0; i<${#nums[@]}; i++)); do
+    num=${nums[$i]}
+    sound=${sounds[$i]}
 
-    if (($1 % $NUM == 0)); then
-      ACC+=$SOUND
+    if (($1 % $num == 0)); then
+      acc+=$sound
     fi
   done
 
-  [ -n "$ACC" ] && echo $ACC || echo $1
+  [ -n "$acc" ] && echo $acc || echo $1
 }
 
 if (($# != 1)) || ! [[ "$1" =~ ^[0-9]+$ ]]; then
