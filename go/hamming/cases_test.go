@@ -64,4 +64,10 @@ var testCases = []struct {
 		0,
 		true,
 	},
+	{ // fight Western chauvinism
+		"aüa",
+		"aÃa",
+		1,
+		false,
+	},
 }
