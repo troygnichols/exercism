@@ -11,6 +11,9 @@ public class Meetup {
     this.firstDayOfMonth = LocalDate.of(year, month, 1);
   }
 
+  /**
+   * Get the date for a meetup, given the day of week and meetup type.
+   */
   public LocalDate day(DayOfWeek dow, MeetupSchedule sched) {
     switch (sched) {
       case LAST:
