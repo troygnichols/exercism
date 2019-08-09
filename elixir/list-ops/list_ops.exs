@@ -1,31 +1,29 @@
 defmodule ListOps do
   @spec count(list) :: non_neg_integer
-  def count(list), do: do_count(list, 0)
-
-  defp do_count([], acc), do: acc
-  defp do_count([_ | t], acc), do: do_count(t, acc + 1)
+  def count(list) do
+    reduce(list, 0, fn (_, acc) -> acc + 1 end)
+  end
 
   @spec reverse(list) :: list
-  def reverse(list), do: do_reverse(list, [])
-
-  defp do_reverse([], acc), do: acc
-  defp do_reverse([h | t], acc), do: do_reverse(t, [h | acc])
+  def reverse(list) do
+    reduce(list, [], fn (item, acc) ->  [item | acc] end)
+  end
 
   @spec map(list, (any -> any)) :: list
-  def map(list, fun), do: do_map(list, fun, []) |> reverse()
-
-  defp do_map([], _fun, acc), do: acc
-  defp do_map([h | t], fun, acc), do: do_map(t, fun, [fun.(h) | acc])
+  def map(list, fun) do
+    reduce(list, [], fn (item, acc) -> [fun.(item) | acc] end)
+    |> reverse()
+  end
 
   @spec filter(list, (any -> as_boolean(term))) :: list
-  def filter(list, fun), do: do_filter(list, fun, []) |> reverse()
-
-  defp do_filter([], _fun, acc), do: acc
-  defp do_filter([h | t], fun, acc) do
-    case fun.(h) do
-      true -> do_filter(t, fun, [h | acc])
-      _ -> do_filter(t, fun, acc)
-    end
+  def filter(list, fun) do
+    reduce(list, [], fn (item, acc) ->
+      case !!fun.(item) do
+        true -> [item | acc]
+        _ -> acc
+      end
+    end)
+    |> reverse()
   end
 
   @type acc :: any
@@ -34,7 +32,7 @@ defmodule ListOps do
   def reduce([h | t], acc, fun), do: reduce(t, fun.(h, acc), fun)
 
   @spec append(list, list) :: list
-  def append(a, b), do: do_append(reverse(a), b)
+  def append(a, b), do: a |> reverse() |> do_append(b)
 
   defp do_append([], b), do: b
   defp do_append([h | t], b), do: do_append(t, [h | b])

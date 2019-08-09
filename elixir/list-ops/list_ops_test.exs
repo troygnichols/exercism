@@ -62,6 +62,11 @@ defmodule ListOpsTest do
     assert L.filter([], &odd?/1) == []
   end
 
+  # @tag :wip
+  test "filter truthy" do
+    assert L.filter([1,2,3,4], fn(n) -> if (n > 2), do: "yes", else: nil end) == [3,4]
+  end
+
   # @tag :pending
   test "filter of normal list" do
     assert L.filter([1, 2, 3, 4], &odd?/1) == [1, 3]
