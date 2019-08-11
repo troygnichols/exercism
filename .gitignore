@@ -21,3 +21,7 @@ csharp/*/obj
 
 # C
 c/*/tests.out*
+
+# Python
+.mypy_cache
+*.pyc
