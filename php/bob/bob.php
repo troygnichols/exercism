@@ -6,28 +6,23 @@ class Bob
     {
         $input = trim($input);
 
-        if (Bob::isBlank($input)) {
-            return "Fine. Be that way!";
+        switch (true) {
+            case Bob::isBlank($input):
+                return 'Fine. Be that way!';
+            case Bob::isYelling($input) && Bob::isQuestion($input):
+                return 'Calm down, I know what I\'m doing!';
+            case Bob::isYelling($input):
+                return 'Whoa, chill out!';
+            case Bob::isQuestion($input):
+                return 'Sure.';
+            default:
+                return "Whatever.";
         }
-
-        if (Bob::isYelling($input) && Bob::isQuestion($input)) {
-            return "Calm down, I know what I'm doing!";
-        }
-
-        if (Bob::isYelling($input)) {
-            return "Whoa, chill out!";
-        }
-
-        if (Bob::isQuestion($input)) {
-            return "Sure.";
-        }
-
-        return "Whatever.";
     }
 
     private static function isBlank(string $input): bool
     {
-        return strlen($input) == 0;
+        return strlen($input) === 0;
     }
 
     private static function isYelling(string $input): bool
@@ -37,7 +32,7 @@ class Bob
 
     private static function isQuestion(string $input): bool
     {
-        return substr($input, -1) == "?";
+        return substr($input, -1) === '?';
     }
 
     private static function hasLetters(string $input): bool
@@ -47,6 +42,6 @@ class Bob
 
     private static function isUpper(string $input): bool
     {
-        return strtoupper($input) == $input;
+        return strtoupper($input) === $input;
     }
 }
