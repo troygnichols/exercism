@@ -1,5 +1,8 @@
 const range = n => [...Array(n).keys()];
 
+const extractColumnValue = (index) =>
+      (row) => row[index];
+
 export class Matrix {
 
   constructor(rawInput) {
@@ -7,23 +10,19 @@ export class Matrix {
   }
 
   get rows() {
-    return this.lines.map(rowstr =>
-      rowstr.split(' ')
-      .map(numstr => parseInt(numstr))
-    );
+    return this.rawInput.split("\n").map(
+      rowstr => rowstr.split(' ').map(Number));
   }
 
   get columns() {
     return range(this.width)
-      .map(i => this.rows.map(row => row[i]))
-  }
-
-  get lines() {
-    return this.rawInput.split('\n');
+      .map(rowIndex =>
+           this.rows.map(
+             extractColumnValue(rowIndex)));
   }
 
   get width() {
-    return this.rows
-      .reduce((acc, row) => Math.max(acc, row.length), 0);
+    return Math.max(
+      ...this.rows.map(row => row.length));
   }
 }
